@@ -16,7 +16,7 @@ public class RabbitProducerService {
 
     private final RabbitTemplate rabbitTemplate;
 
-    public void sendMessage(RequestObject<?> requestObject) {
+    public void sendMessage(RequestObject requestObject) {
         log.info("send message by rabbit");
         try {
             rabbitTemplate.convertAndSend(
@@ -29,18 +29,19 @@ public class RabbitProducerService {
         }
     }
 
-    public ResponseObject<?> sendAndReceiveMessage(RequestObject<?> requestObject) {
+    public ResponseObject sendAndReceiveMessage(RequestObject requestObject) {
         log.info("send and receive message by rabbit");
         try {
-            ResponseObject<?> responseObject = (ResponseObject<?>) rabbitTemplate.convertSendAndReceive(
+            ResponseObject responseObject = (ResponseObject) rabbitTemplate.convertSendAndReceive(
                     requestObject.getExchange(),
                     requestObject.getRoutingKey(),
                     requestObject);
+
             ObjectMapper objectMapper = new ObjectMapper();
 
-//            Object responseBody = objectMapper.convertValue(
+//            Object responseBody = objectMapper.getTypeFactory().
 //                    responseObject.getResponseBody(),
-//                    responseObject.getResponseBodyTypeRef());
+//                    responseObject.getRequestBodyTypeReference());
             return responseObject;
         } catch (Exception e) {
             log.error("exception in send and receive message by rabbit", e);
