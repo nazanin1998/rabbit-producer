@@ -1,6 +1,5 @@
 package com.nazaninfz.rabbitproducer.services;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.nazaninfz.messagingsharedmodel.models.TestModel;
 import com.nazaninfz.messagingsharedmodel.models.TestModelInner1;
 import com.nazaninfz.messagingsharedmodel.models.TestModelInner2;
@@ -10,14 +9,13 @@ import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.UUID;
 
 @Component
 @AllArgsConstructor
 public class Test {
-    private final RabbitProducerService service;
+    private final RabbitProducerImpl service;
 
     public void test() {
         service.sendMessage(new RequestObject()
